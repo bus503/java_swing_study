@@ -20,6 +20,7 @@ public class BorderLayoutEx extends JFrame {
 	public BorderLayoutEx() {
 		initialize();
 	}
+	
 	private void initialize() {
 		setTitle("BorderLayout Sample");
 		setDefaultCloseOperation(JFrame. DISPOSE_ON_CLOSE);
@@ -44,5 +45,4 @@ public class BorderLayoutEx extends JFrame {
 		btnCalculate = new JButton("Calculate");
 		contentPane.add(btnCalculate, BorderLayout.CENTER);
 	}
-
 }
