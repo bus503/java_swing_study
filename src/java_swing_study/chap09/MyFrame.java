@@ -4,6 +4,7 @@ import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class MyFrame extends JFrame {
 
 	public MyFrame() throws HeadlessException {

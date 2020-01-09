@@ -1,82 +1,91 @@
 package java_swing_study.chap09.layout.openchallenge.task;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class GridLayout_task extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
-	private JButton btnNewButton_4;
-	private JButton btnNewButton_5;
-	private JButton btnNewButton_6;
-	private JButton btnNewButton_7;
-	private JButton btnNewButton_8;
-	private JButton btnNewButton_9;
+	private JButton btn0;
+	private JButton btn1;
+	private JButton btn2;
+	private JButton btn3;
+	private JButton btn4;
+	private JButton btn5;
+	private JButton btn6;
+	private JButton btn7;
+	private JButton btn8;
+	private JButton btn9;
 	
 	public GridLayout_task() {
 		initialize();
 	}
 	private void initialize() {
 		setTitle("실습문제 4번");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		contentPane.setLayout(new GridLayout(0, 10, 0, 0));
 		
-		btnNewButton = new JButton("0");
-		btnNewButton.addActionListener(this);
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setBackground(Color.RED);
-		contentPane.add(btnNewButton);
+		btn0 = new JButton("0");
+		btn0.addActionListener(this);
+		btn0.setBackground(Color.RED);
+		contentPane.add(btn0);
 		
-		btnNewButton_1 = new JButton("1");
-		contentPane.add(btnNewButton_1);
+		btn1 = new JButton("1");
+		btn1.setBackground(Color.ORANGE);
+		contentPane.add(btn1);
 		
-		btnNewButton_2 = new JButton("2");
-		contentPane.add(btnNewButton_2);
+		btn2 = new JButton("2");
+		btn2.setBackground(Color.YELLOW);
+		contentPane.add(btn2);
 		
-		btnNewButton_3 = new JButton("3");
-		contentPane.add(btnNewButton_3);
+		btn3 = new JButton("3");
+		btn3.setBackground(new Color(34, 139, 34));
+		contentPane.add(btn3);
 		
-		btnNewButton_4 = new JButton("4");
-		contentPane.add(btnNewButton_4);
+		btn4 = new JButton("4");
+		btn4.setBackground(Color.CYAN);
+		contentPane.add(btn4);
 		
-		btnNewButton_5 = new JButton("5");
-		contentPane.add(btnNewButton_5);
+		btn5 = new JButton("5");
+		btn5.setBackground(Color.BLUE);
+		contentPane.add(btn5);
 		
-		btnNewButton_6 = new JButton("6");
-		contentPane.add(btnNewButton_6);
+		btn6 = new JButton("6");
+		btn6.setBackground(new Color(153, 50, 204));
+		contentPane.add(btn6);
 		
-		btnNewButton_7 = new JButton("7");
-		contentPane.add(btnNewButton_7);
+		btn7 = new JButton("7");
+		btn7.setBackground(new Color(128, 128, 128));
+		contentPane.add(btn7);
 		
-		btnNewButton_8 = new JButton("8");
-		contentPane.add(btnNewButton_8);
+		btn8 = new JButton("8");
+		btn8.setBackground(new Color(255, 192, 203));
+		contentPane.add(btn8);
 		
-		btnNewButton_9 = new JButton("9");
-		contentPane.add(btnNewButton_9);
+		btn9 = new JButton("9");
+		btn9.setBackground(new Color(169, 169, 169));
+		contentPane.add(btn9);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			btnNewButtonActionPerformed(e);
+		if (e.getSource() == btn0) {
+			btn0ActionPerformed(e);
 		}
 	}
-	protected void btnNewButtonActionPerformed(ActionEvent e) {
+	protected void btn0ActionPerformed(ActionEvent e) {
+		
 	}
 }

@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class ConTentPaneEx extends JFrame {
 
 	public ConTentPaneEx() {

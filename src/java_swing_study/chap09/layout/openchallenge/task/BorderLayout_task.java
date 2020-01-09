@@ -24,7 +24,7 @@ public class BorderLayout_task extends JFrame implements ActionListener {
 	}
 	private void initialize() {
 		setTitle("실습문제 2번");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,12 +53,9 @@ public class BorderLayout_task extends JFrame implements ActionListener {
 		if (e.getSource() == btnNorth) {
 			btnNorthActionPerformed(e);
 		}
-		if (e.getSource() == btnCenter) {
-			btnCenterActionPerformed(e);
-		}
 	}
-	protected void btnCenterActionPerformed(ActionEvent e) {
-	}
-	protected void btnNorthActionPerformed(ActionEvent e) {
+	private void btnNorthActionPerformed(ActionEvent e) {
+		BorderLayout_task frame = new BorderLayout_task();
+		frame.setVisible(true);
 	}
 }
