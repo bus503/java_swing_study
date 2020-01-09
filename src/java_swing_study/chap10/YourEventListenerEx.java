@@ -1,26 +1,20 @@
 package java_swing_study.chap10;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import java_swing_study.chap09.ConTentPaneEx;
-import java_swing_study.chap10.EventListenerEx.MyAction3Listener;
-
-import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+@SuppressWarnings("serial")
 public class YourEventListenerEx extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -72,7 +66,7 @@ public class YourEventListenerEx extends JFrame implements ActionListener {
 		contentPane.add(panel1);
 		panel1.setLayout(new BorderLayout(0, 0));
 
-		btn01 = new JButton("배경색 변경");
+		btn01 = new JButton("윈도우");
 		btn01.addActionListener(this);
 		panel1.add(btn01, BorderLayout.CENTER);
 
@@ -82,10 +76,9 @@ public class YourEventListenerEx extends JFrame implements ActionListener {
 		contentPane.add(panel2);
 		panel2.setLayout(new BorderLayout(0, 0));
 
-		JButton btn02 = new JButton("배경색 변경");
-		btn02.addActionListener(new MyAction3());
-		panel2.add(btn02);
-		/* panel2.add(btn02, BorderLayout.CENTER); */
+		JButton btn02 = new JButton("독립클래스");
+		btn02.addActionListener(new MyAction3(contentPane));
+		panel2.add(btn02, BorderLayout.CENTER);
 
 		panel3 = new JPanel();
 		panel3.setBorder(new TitledBorder(null, "\uB0B4\uBD80\uD074\uB798\uC2A4", TitledBorder.LEADING,
@@ -94,7 +87,7 @@ public class YourEventListenerEx extends JFrame implements ActionListener {
 		contentPane.add(panel3);
 		panel3.setLayout(new BorderLayout(0, 0));
 
-		btn03 = new JButton("배경색 변경");
+		btn03 = new JButton("내부클래스");
 		btn03.addActionListener(new MyAction4());
 		panel3.add(btn03, BorderLayout.CENTER);
 
@@ -104,38 +97,23 @@ public class YourEventListenerEx extends JFrame implements ActionListener {
 		contentPane.add(panel4);
 		panel4.setLayout(new BorderLayout(0, 0));
 
-		btn04 = new JButton("배경색 변경");
-		btn03.addActionListener(new ActionListener() {
-			
+		btn04 = new JButton("익명클래스");
+		panel4.add(btn04);
+		btn04.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (contentPane.getBackground() == Color.PINK) {
-//					contentPane.setBackground(Color.RED);
-//				} else {
-//					contentPane.setBackground(Color.PINK);
-//				}
+				if (contentPane.getBackground() == Color.YELLOW) {
+					contentPane.setBackground(Color.RED);
+				} else {
+					contentPane.setBackground(Color.YELLOW);
+				}
 			}
 		});
-		panel4.add(btn04);
-	}
-
-	public class MyAction4 implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println(contentPane.getBackground());
-			if (contentPane.getBackground() == Color.YELLOW) {
-				contentPane.setBackground(Color.RED);
-			} else {
-				contentPane.setBackground(Color.YELLOW);
-			}
-		}
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btn02) {
-			btn02ActionPerformed(e);
-		}
 		if (e.getSource() == btn01) {
 			btn01ActionPerformed(e);
 		}
@@ -149,8 +127,16 @@ public class YourEventListenerEx extends JFrame implements ActionListener {
 			contentPane.setBackground(Color.YELLOW);
 		}
 	}
-
-	protected void btn02ActionPerformed(ActionEvent e) {
-
+	
+	public class MyAction4 implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(contentPane.getBackground());
+			if (contentPane.getBackground() == Color.YELLOW) {
+				contentPane.setBackground(Color.RED);
+			} else {
+				contentPane.setBackground(Color.YELLOW);
+			}
+		}
 	}
 }
