@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class FocusListenerEx extends JFrame implements ActionListener {
+
 	private JPanel contentPane;
 	private JLabel lblName;
 	private JTextField tfName;
@@ -34,19 +35,21 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 	private JLabel lblRes;
 	private JPasswordField pw1;
 	private JPasswordField pw2;
-	private JLabel lblconfom;
+	private JLabel lblConfirm;
 	private JButton btnOk;
 	private JButton btnCancel;
-	Student str;
+	private JButton btnSet;
+ 
 	public FocusListenerEx() {
 		initialize();
 	}
+	
 	private void initialize() {
 		setTitle("GridLayout Sample");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 300, 200); // 좌표와 사이즈를 합친거
-//		setSize(300, 200); // 사이즈
-//		setLocation(100, 100); //좌표
+		setSize(329, 264);
+		setLocation(100, 100);
+//		setBounds(100, 100, 329, 224);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,9 +78,9 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 			}
 			
 			public void msg() {
-				lblRes.setText(String.format(" %s 길이 : %d", tfName.getText() , tfName.getText().length()));
-
+				lblRes.setText(String.format("%s 길이 : %d", tfName.getText(), tfName.getText().length()));
 			}
+			
 		});
 		contentPane.add(tfName);
 		tfName.setColumns(10);
@@ -88,19 +91,16 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 		
 		tfNo = new JTextField();
 		tfNo.addFocusListener(new FocusListener() {
-			
 			@Override
-			public void focusLost(FocusEvent e) {
-				
-			}
+			public void focusLost(FocusEvent e) {}
 			
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(tfName.getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "이름을 입력하세요");
+				if (tfName.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null, "tfNo 이름을 입력하세요");
 				}
 			}
-		});
+		}); 
 		tfNo.setColumns(10);
 		contentPane.add(tfNo);
 		
@@ -117,88 +117,71 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 		contentPane.add(lblSubj);
 		
 		tfSubj = new JTextField();
-		tfSubj.setFocusable(true);
-		tfSubj.requestFocus();
 		tfSubj.setColumns(10);
 		contentPane.add(tfSubj);
 		
 		tfSubj.setRequestFocusEnabled(true);
 		
-		
 		lblRes = new JLabel("이름필드 글자수");
 		contentPane.add(lblRes);
 		
-		lblconfom = new JLabel("");
-		lblconfom.setHorizontalAlignment(SwingConstants.CENTER);
-		lblconfom.setFont(new Font("굴림", Font.BOLD, 18));
-		lblconfom.setForeground(Color.RED);
-		contentPane.add(lblconfom);
+		lblConfirm = new JLabel("");
+		lblConfirm.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConfirm.setFont(new Font("굴림", Font.BOLD, 20));
+		lblConfirm.setForeground(Color.RED);
+		contentPane.add(lblConfirm);
 		
 		pw1 = new JPasswordField();
 		pw1.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				rensyu();
+				// TODO Auto-generated method stub
+				
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				rensyu();
+				// TODO Auto-generated method stub
+				
 			}
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				rensyu();
-			}
-			
-			private void rensyu() {
-				String pass2 = new String(pw2.getPassword());
-				String pass1 = new String(pw1.getPassword());
+				// TODO Auto-generated method stub
 				
-				System.out.printf("pw2 = %s  pw1 = %s%n", pass2, pass1);
-				
-				if(pass2.equals(pass1)) {
-					lblconfom.setText("일치");
-				}else {
-					lblconfom.setText("불일치");
-				}
 			}
-
 		});
 		contentPane.add(pw1);
-		
 		
 		pw2 = new JPasswordField();
 		pw2.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				isEqualpw();
+				isEqualPw();
 			}
-		
-
+			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				isEqualpw();
+				isEqualPw();				
 			}
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				isEqualpw();
+				isEqualPw();				
 			}
 			
-			private void isEqualpw() {
-				
+			public void isEqualPw() {
 				String pass1 = new String(pw1.getPassword());
 				String pass2 = new String(pw2.getPassword());
 				
-				System.out.printf("pw1 = %s  pw2 = %s%n", pass1, pass2);
+				System.out.printf("pw1 : %s pw2 : %s%n", pass1, pass2);
 				
-				if(pass1.equals(pass2)) {
-					lblconfom.setText("일치");
+				if (pass1.equals(pass2)) {
+					lblConfirm.setText("일치");
 				}else {
-					lblconfom.setText("불일치");
+					lblConfirm.setText("일치하지 않음");
 				}
 			}
 		});
@@ -206,14 +189,16 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 		
 		btnOk = new JButton("확인");
 		btnOk.addActionListener(this);
-		JOptionPane.showMessageDialog(null, btnOk.getText()); 
 		contentPane.add(btnOk);
 		
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
+		
+		btnSet = new JButton("수정");
+		btnSet.addActionListener(this);
+		contentPane.add(btnSet);
 	}
-	
 	
 	public JTextField getTfSubj() {
 		return tfSubj;
@@ -223,12 +208,13 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 		FocusListenerEx frame = new FocusListenerEx();
 		frame.setVisible(true);
 		
-//		frame.getTfSubj().setFocusable(true);
-		frame.getTfSubj().requestFocus();
+		frame.getTfSubj().requestFocus();	
 	}
-	
-	
+
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSet) {
+			btnSetActionPerformed(e);
+		}
 		if (e.getSource() == btnCancel) {
 			btnCancelActionPerformed(e);
 		}
@@ -237,23 +223,51 @@ public class FocusListenerEx extends JFrame implements ActionListener {
 		}
 	}
 	protected void btnOkActionPerformed(ActionEvent e) {
-		Student st = new Student();
-		st.setName(tfName.getText());
-		st.setStdNo(Integer.parseInt(tfNo.getText()));
-		st.setDept(tfDept.getText());
-		st.setSubj(tfSubj.getText());
-		
-		
-		JOptionPane.showMessageDialog(null, st.toString());
-		
+		Student student = getStudent();
+		JOptionPane.showMessageDialog(null, student);
+	}
+
+	public Student getStudent() {
+		String name = tfName.getText().trim();
+		int stdNo = Integer.parseInt(tfNo.getText().trim());
+		String dept = tfDept.getText().trim();
+		String subj = tfSubj.getText().trim();
+		Student student = new Student(name, stdNo, dept, subj);
+		return student;
+	}
+	
+	public void clearTf() {
+		tfName.setText("");
+		tfNo.setText("");
+		tfDept.setText("");
+		tfSubj.setText("");
+	}
+	
+	public void setStudent(Student std) {
+		tfName.setText(std.getName());
+		tfNo.setText(std.getStdNo()+"");
+		tfDept.setText(std.getDept());
+		tfSubj.setText(std.getSubj());
 	}
 	protected void btnCancelActionPerformed(ActionEvent e) {
-		Student st = new Student();
-		st.setName(tfName.getText());
-		st.setStdNo(Integer.parseInt(tfNo.getText()));
-		st.setDept(tfDept.getText());
-		st.setSubj(tfSubj.getText());
-		
-		
+		clearTf();
+	}
+	protected void btnSetActionPerformed(ActionEvent e) {
+		Student newStudent = new Student("이상원", 1, "컴퓨터관광", "자바");
+		setStudent(newStudent);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
