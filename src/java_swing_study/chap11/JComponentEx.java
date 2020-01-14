@@ -1,20 +1,27 @@
 package java_swing_study.chap11;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-public class JComponentEx extends JFrame implements ActionListener {
+@SuppressWarnings("serial")
+public class JComponentEx extends JFrame implements ActionListener, ContainerListener {
 
 	private JPanel contentPane;
 	private JPanel pLeft;
@@ -22,6 +29,8 @@ public class JComponentEx extends JFrame implements ActionListener {
 	private JButton btn1;
 	private JButton btn2;
 	private JButton btn3;
+	private JButton btn4;
+	private JButton btn5;
 
 	/**
 	 * Launch the application.
@@ -47,7 +56,7 @@ public class JComponentEx extends JFrame implements ActionListener {
 	}
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 330);
+		setBounds(100, 100, 334, 284);
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,23 +92,109 @@ public class JComponentEx extends JFrame implements ActionListener {
 		
 		pLeft.add(btn3);
 		
+		btn4 = new JButton("Right Panel Add Btn");
+		btn4.addActionListener(this);
+		pLeft.add(btn4);
+		
+		btn5 = new JButton("Right Panel remove Btn");
+		btn5.addActionListener(this);
+		pLeft.add(btn5);
+		
 		pRight = new JPanel();
+		pRight.addContainerListener(this);
 		pRight.setBorder(new TitledBorder(null, "JComponentEx", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pRight);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btn5) {
+			btn5ActionPerformed(e);
+		}
+		if (e.getSource() == btn4) {
+			btn4ActionPerformed(e);
+		}
 		if (e.getSource() == btn1) {
 			btn1ActionPerformed(e);
 		}
 	}
 	protected void btn1ActionPerformed(ActionEvent e) {
-		if(btn2.isVisible()==false) {
-			
+		if(btn2.isEnabled()==false) {
 			btn2.setEnabled(true);
 		}else {
 			btn2.setEnabled(false);
 		}
+	}
+	protected void btn4ActionPerformed(ActionEvent e) {
+		JButton btn = new JButton("Added");
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new JFrame("Test");
+				frame.addWindowListener(new WindowListener() {
+					
+					@Override
+					public void windowOpened(WindowEvent e) {
+						System.out.printf("%s()%n", "windowOpened");
+					}
+					
+					@Override
+					public void windowIconified(WindowEvent e) {
+						System.out.printf("%s()%n", "windowIconified");						
+					}
+					
+					@Override
+					public void windowDeiconified(WindowEvent e) {
+						System.out.printf("%s()%n", "windowDeiconified");						
+					}
+					
+					@Override
+					public void windowDeactivated(WindowEvent e) {
+						System.out.printf("%s()%n", "windowDeactivated");						
+					}
+					
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.out.printf("%s()%n","windowClosing");						
+					}
+					
+					@Override
+					public void windowClosed(WindowEvent e) {
+						System.out.printf("%s()%n", "windowClosed");						
+					}
+					
+					@Override
+					public void windowActivated(WindowEvent e) {
+						System.out.printf("%s()%n", "windowActivated");						
+					}
+				});
+				frame.setBounds(500, 500, 500, 500);
+				frame.setVisible(true);
+			}
+		});
+		pRight.add(btn);
+		revalidate();
+	}
+	protected void btn5ActionPerformed(ActionEvent e) {
+		for(Component c : pRight.getComponents()) {
+			if (c instanceof JButton) {
+				pRight.remove(c);
+				revalidate();
+				repaint();
+				break;
+			}
+		}
+	}
+	public void componentAdded(ContainerEvent e) {
+		if (e.getSource() == pRight) {
+			pRightComponentAdded(e);
+		}
+	}
+	public void componentRemoved(ContainerEvent e) {
+		JOptionPane.showMessageDialog(null, "버튼이 삭제되었습니다.");
+	}
+	protected void pRightComponentAdded(ContainerEvent e) {
+		JOptionPane.showMessageDialog(null, "버튼이 추가되었습니다.");
 	}
 }
