@@ -251,6 +251,5 @@ public class CheckBoxItemEventEx extends JFrame implements ItemListener, ActionL
 			text +="  체리  ";
 		}
 		JOptionPane.showMessageDialog(null, text);
-
 	}
 }
