@@ -197,10 +197,13 @@ public class ComboxEx extends JFrame implements ActionListener {
 	}
 	
 	protected void cmdStudentActionPerformed(ActionEvent e) {
-		lblStudent.setText(cmdStudent.getSelectedItem().toString());
+		Student std = (Student)cmdStudent.getSelectedItem();
+		lblStudent.setText(std.getStdNo() + " " + std.getStdName() + " " + std.getKor() + " " + std.getEng() + " " + std.getMath() + " " + std.total() + " " + (String.format("%.2f", std.avg())));
+		
+//		lblStudent.setText(cmdStudent.getSelectedItem().toString());
 //		lblStudent.setText(getStudentModel().toString());
 //		lblStudent.setText(cmdStudent.getParent());
-		System.out.println(e);
+//		System.out.println(e);
 		
 	}
 	protected void btnConfirmActionPerformed(ActionEvent e) {
