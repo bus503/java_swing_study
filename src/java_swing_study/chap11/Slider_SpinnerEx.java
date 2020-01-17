@@ -1,24 +1,31 @@
 package java_swing_study.chap11;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JSlider;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import javax.swing.JTextField;
+import javax.swing.event.ChangeListener;
+import javax.swing.JSpinner;
 import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 @SuppressWarnings("serial")
 public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionListener {
@@ -42,6 +49,15 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	private JLabel lblBlue;
 	private JTextField tfBlue;
 	private JButton btnOk;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JSpinner spList;
+	private JLabel lblList;
+	private JSpinner spNumber;
+	private JLabel lblNumber;
+	private JSpinner spDate;
+	private JLabel lblDate;
 
 	
 	public static void main(String[] args) {
@@ -92,13 +108,14 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		pSlider2 = new JPanel();
 		pSlider2.setBorder(new TitledBorder(null, "\uC608\uC81C 11-15", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pSlider2);
-		pSlider2.setLayout(new GridLayout(0, 1, 10, 20));
+		pSlider2.setLayout(new GridLayout(0, 1, 3, 0));
 		
 		panel = new JPanel();
 		pSlider2.add(panel);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		lblRed = new JLabel("Red");
+		lblRed.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblRed);
 		
 		tfRed = new JTextField();
@@ -108,6 +125,7 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		panel.add(tfRed);
 		
 		lblGreen = new JLabel("Green");
+		lblGreen.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblGreen);
 		
 		tfGreen = new JTextField();
@@ -115,6 +133,7 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		panel.add(tfGreen);
 		
 		lblBlue = new JLabel("Blue");
+		lblBlue.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblBlue);
 		
 		tfBlue = new JTextField();
@@ -153,6 +172,7 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		pSlider2.add(sliderBlue);
 		
 		lblValue2 = new JLabel("SLIDER EXAMPLE");
+		lblValue2.setForeground(Color.GRAY);
 		lblValue2.setFont(new Font("굴림", Font.BOLD, 18));
 		lblValue2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValue2.setBackground(Color.ORANGE);
@@ -162,6 +182,50 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		pSpinner1 = new JPanel();
 		pSpinner1.setBorder(new TitledBorder(null, "JSpinner \uC608\uC81C1", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pSpinner1);
+		pSpinner1.setLayout(new GridLayout(0, 1, 0, 20));
+		
+		panel_1 = new JPanel();
+		pSpinner1.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		spList = new JSpinner();
+		spList.setModel(new SpinnerListModel(new String[] {"\uC18C\uC124", "\uC7A1\uC9C0", "\uC804\uACF5\uC11C\uC801", "\uCDE8\uBBF8"}));
+		panel_1.add(spList);
+		
+		lblList = new JLabel("List");
+		lblList.setHorizontalAlignment(SwingConstants.CENTER);
+		lblList.setForeground(Color.RED);
+		lblList.setFont(new Font("굴림", Font.ITALIC, 35));
+		panel_1.add(lblList);
+		
+		panel_2 = new JPanel();
+		pSpinner1.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		spNumber = new JSpinner();
+		spNumber.setModel(new SpinnerNumberModel(0, -10, 10, 1));
+		panel_2.add(spNumber);
+		
+		lblNumber = new JLabel("Number");
+		lblNumber.setToolTipText("");
+		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumber.setForeground(Color.ORANGE);
+		lblNumber.setFont(new Font("굴림", Font.BOLD, 35));
+		panel_2.add(lblNumber);
+		
+		panel_3 = new JPanel();
+		pSpinner1.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		spDate = new JSpinner();
+		spDate.setModel(new SpinnerDateModel(new Date(1579186800000L), new Date(1579186800000L), new Date(1989500400000L), Calendar.YEAR));
+		panel_3.add(spDate);
+		
+		lblDate = new JLabel("Date");
+		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDate.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 20));
+		lblDate.setForeground(Color.MAGENTA);
+		panel_3.add(lblDate);
 		
 		pSpinner2 = new JPanel();
 		pSpinner2.setBorder(new TitledBorder(null, "JSpinner \uC608\uC81C2", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -176,9 +240,22 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		sliderGreen.setValue(0);
 		sliderBlue.addChangeListener(this);
 		sliderBlue.setValue(0);
+		
+		spList.addChangeListener(this);
+		spNumber.addChangeListener(this);
+		spDate.addChangeListener(this);
 	}
 
 	public void stateChanged(ChangeEvent e) {
+		if (e.getSource() == spDate) {
+			spDateStateChanged(e);
+		}
+		if (e.getSource() == spNumber) {
+			spNumberStateChanged(e);
+		}
+		if (e.getSource() == spList) {
+			spListStateChanged(e);
+		}
 		if (e.getSource() == sliderBlue) {
 			sliderBlueStateChanged(e);
 		}
@@ -233,7 +310,6 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		}
 	}
 	protected void tfRedActionPerformed(ActionEvent e) {
-//		btnOk.setText(sliderRed.getValue()+"");
 	}
 	protected void btnOkActionPerformed(ActionEvent e) {
 //		String a = tfRed.getText();
@@ -242,6 +318,15 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		sliderRed.setValue(Integer.parseInt(tfRed.getText()));
 		sliderGreen.setValue(Integer.parseInt(tfGreen.getText()));
 		sliderBlue.setValue(Integer.parseInt(tfBlue.getText()));
-		
+	}
+	protected void spListStateChanged(ChangeEvent e) {
+		lblList.setText(spList.getValue() + "");
+	}
+	protected void spNumberStateChanged(ChangeEvent e) {
+		lblNumber.setText(spNumber.getValue()+ "");
+	}
+	protected void spDateStateChanged(ChangeEvent e) {
+//		Date date = new Date();
+		lblDate.setText(spDate.getValue() + "");
 	}
 }
