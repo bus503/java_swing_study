@@ -134,7 +134,7 @@ public class StudentTblPanel extends JPanel {
 	}
 	
 	public void updateRow(Student std, int updateIdx) {
-		model.setValueAt(String.format("S%03d",std.getStdNo()), updateIdx, 0);
+		model.setValueAt(String.format("S%03d",std.getStdNo()), updateIdx, 0);//S001
 		model.setValueAt(std.getStdName(), updateIdx, 1);
 		model.setValueAt(std.getKor(), updateIdx, 2);
 		model.setValueAt(std.getEng(), updateIdx, 3);
@@ -161,9 +161,11 @@ public class StudentTblPanel extends JPanel {
 	}
 	
 	public Student getSelectedItem() {
-		int selectedIdx = getSelectedRowIdx();
+		int selectedIdx = table.getSelectedRow();
+		
 //		int stdNo = (int) model.getValueAt(selectedIdx, 0);
-		int stdNo = Integer.parseInt((String)model.getValueAt(selectedIdx, 0));
+		String strNo = ((String)model.getValueAt(selectedIdx, 0)).replace("S", "");//S001 -> 001
+		int stdNo = Integer.parseInt(strNo);
 		String stdName = (String) model.getValueAt(selectedIdx, 1);
 //		int stdName = Integer.parseInt((String)model.getValueAt(selectedIdx, 1));
 		int kor = (int) model.getValueAt(selectedIdx, 2);
@@ -171,7 +173,6 @@ public class StudentTblPanel extends JPanel {
 		int eng = (int) model.getValueAt(selectedIdx, 4);
 				
 		return new Student(stdNo, stdName, kor, math, eng);
-		
 	}
 	
 	
@@ -192,7 +193,9 @@ public class StudentTblPanel extends JPanel {
 	public static void main(String[] args) {
 		//jpanel은 단독으로 화면에 안뜸 그래서 시험해보려고 메인을 만들어봄
 		JFrame frame = new JFrame();
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setBounds(10, 10, 450, 500);
 		
 		StudentTblPanel tbl = new StudentTblPanel();
@@ -221,11 +224,11 @@ public class StudentTblPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Student upStd = new Student(2, "이상원", 100, 100, 100);
 				tbl.updateRow(upStd,1); //이성경 학생을 이상원으로 바꿈
-				
 //				tbl.updateRow();
 			}
 		});
 		popMenu.add(updateItem);
+		
 		
 		
 		JMenuItem getSelectedItem = new JMenuItem("선택한 학생확인");
@@ -238,6 +241,8 @@ public class StudentTblPanel extends JPanel {
 			}
 		});
 		popMenu.add(getSelectedItem);
+		
+		
 
 		JMenuItem deleteItem = new JMenuItem("삭제");
 		deleteItem.addActionListener(new ActionListener() {
