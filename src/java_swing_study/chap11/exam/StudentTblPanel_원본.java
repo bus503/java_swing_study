@@ -26,12 +26,12 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
-public class StudentTblPanel extends JPanel {
+public class StudentTblPanel_원본 extends JPanel {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private NotEditableModel model;
 
-	public StudentTblPanel() {
+	public StudentTblPanel_원본() {
 		
 		initialize();
 	}
@@ -229,7 +229,7 @@ public class StudentTblPanel extends JPanel {
 		
 		frame.setBounds(10, 10, 450, 500);
 		
-		StudentTblPanel tbl = new StudentTblPanel();
+		StudentTblPanel_원본 tbl = new StudentTblPanel_원본();
 		frame.add(tbl);
 		frame.setVisible(true);
 		

@@ -11,15 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import java_swing_study.chap11.exam.Student;
 import java_swing_study.chap11.exam.StudentPanel;
-import java_swing_study.chap11.exam.StudentTblPanel;
+import java_swing_study.chap11.exam.StudentTblPanel_원본;
 
 @SuppressWarnings("serial")
 public class StudentTableEx extends JFrame implements ActionListener {
@@ -72,7 +68,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		//모프시켰을때 이게 이렇게 되어있으면 안보임
 		//그래서 새로 패널추가해서 모프시킴
 		
-		pStdTbl = new StudentTblPanel();
+		pStdTbl = new StudentTblPanel_원본();
 		pList.add(pStdTbl, BorderLayout.CENTER);
 		
 
@@ -163,7 +159,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 			}
 		}
 	};
-	private StudentTblPanel pStdTbl;
+	private StudentTblPanel_원본 pStdTbl;
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancel) {
