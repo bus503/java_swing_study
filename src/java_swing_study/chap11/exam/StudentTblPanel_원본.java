@@ -35,6 +35,7 @@ public class StudentTblPanel_원본 extends JPanel {
 		
 		initialize();
 	}
+	
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -171,12 +172,10 @@ public class StudentTblPanel_원본 extends JPanel {
 	
 	public Student getSelectedItem() {
 		int selectedIdx = table.getSelectedRow();
-		
-//		int stdNo = (int) model.getValueAt(selectedIdx, 0);
+
 		String strNo = ((String)model.getValueAt(selectedIdx, 0)).replace("S", "");//S001 -> 001
 		int stdNo = Integer.parseInt(strNo);
 		String stdName = (String) model.getValueAt(selectedIdx, 1);
-//		int stdName = Integer.parseInt((String)model.getValueAt(selectedIdx, 1));
 		int kor = (int) model.getValueAt(selectedIdx, 2);
 		int math = (int) model.getValueAt(selectedIdx, 3);
 		int eng = (int) model.getValueAt(selectedIdx, 4);
