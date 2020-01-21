@@ -4,26 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class StudentFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private StudentPanel panel;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JScrollPane scrollPane;
-	private JTextArea textArea;
+	private JPanel pContent;
+	private StudentTblPanel pList;
+	private StudentPanel pStudent;
+	private JPanel pBtns;
 	private JButton btnAdd;
-	private JButton btnReset;
-
+	private JButton btnCancel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,59 +36,64 @@ public class StudentFrame extends JFrame implements ActionListener {
 		});
 	}
 
-	
 	public StudentFrame() {
 		initialize();
 	}
+	
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 489);
+		setBounds(100, 100, 450, 468);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
+		pContent = new JPanel();
+		contentPane.add(pContent);
+		pContent.setLayout(new BorderLayout(0, 0));
 		
-		contentPane.setLayout(new BorderLayout(0, 0));
+		pStudent = new StudentPanel();
+		pContent.add(pStudent, BorderLayout.CENTER);
 		
-		panel = new StudentPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		panel_2 = new JPanel();
-		panel_1.add(panel_2, BorderLayout.NORTH);
+		pBtns = new JPanel();
+		contentPane.add(pBtns);
 		
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
-		panel_2.add(btnAdd);
+		pBtns.add(btnAdd);
 		
-		btnReset = new JButton("취소");
-		btnReset.addActionListener(this);
-		panel_2.add(btnReset);
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
+		pBtns.add(btnCancel);
 		
-		scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
+		pList = new StudentTblPanel();
+		contentPane.add(pList);
 		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
+		ArrayList<Student> stds = new ArrayList<Student>();
+		stds.add(new Student(1, "서현진", 80, 90, 70));
+		stds.add(new Student(2, "이성경", 90, 90, 40));
+		stds.add(new Student(3, "이유영", 50, 50, 60));
+		
+		pList.loadData(stds);
+//		pList.setLayout(new BorderLayout(0, 0));
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnReset) {
-			btnResetActionPerformed(e);
+		if (e.getSource() == btnCancel) {
+			btnCancelActionPerformed(e);
 		}
 		if (e.getSource() == btnAdd) {
 			btnAddActionPerformed(e);
 		}
 	}
+	
 	protected void btnAddActionPerformed(ActionEvent e) {
-		Student std = panel.getItem();
-		textArea.append(std.toString() + "\n");
-	}
-	protected void btnResetActionPerformed(ActionEvent e) {
-		panel.clearTf();
+		Student std = pStudent.getItem();
+//		ta.append(std.toString() + "\n");
+		pStudent.clearTf();
 	}
 	
+	protected void btnCancelActionPerformed(ActionEvent e) {
+		pStudent.clearTf();
+	}
 }

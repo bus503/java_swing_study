@@ -33,7 +33,7 @@ public class Student {
 
 	public void setKor(int kor) {
 		this.kor = kor;
-	}
+	} 
 
 	public void setMath(int math) {
 		this.math = math;
@@ -76,4 +76,28 @@ public class Student {
 		return String.format("[%2d %-10s %3d %3d %3d %3d %.2f]", stdNo, stdName, kor, math, eng, total(), avg());
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + stdNo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		Student other = (Student) obj;
+		if (stdNo != other.stdNo)
+			return false;
+		return true;
+	}
+
+	public int getTotal() {
+		return kor + eng + math;
+	}
+	
+	public double getAvg() {
+		return getTotal()/3D;
+	}
 }
