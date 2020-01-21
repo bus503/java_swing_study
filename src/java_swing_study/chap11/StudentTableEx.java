@@ -13,11 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java_swing_study.chap11.exam.Student;
 import java_swing_study.chap11.exam.StudentPanel;
+import java_swing_study.chap11.exam.StudentTblPanel;
 
 @SuppressWarnings("serial")
 public class StudentTableEx extends JFrame implements ActionListener {
@@ -26,7 +28,6 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	private StudentPanel pStudent;
 	private JPanel pList;
 	private JPanel pBtns;
-	private JScrollPane scrollPane;
 	private ArrayList<Student> stds;
 	private JButton btnAdd;
 	private JButton btnCancel;
@@ -45,11 +46,11 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	}
 
 	public StudentTableEx() {
-		stds = new ArrayList<Student>();
-		stds.add(new Student (1,"서현진",90,80,70));
-		stds.add(new Student (2,"남궁민",90,90,90));
-		stds.add(new Student (3,"손예진",70,40,50));
-		
+//		stds = new ArrayList<Student>();
+//		stds.add(new Student (1,"서현진",90,80,70));
+//		stds.add(new Student (2,"남궁민",90,90,90));
+//		stds.add(new Student (3,"손예진",70,40,50));
+
 		initialize();
 	}
 
@@ -68,12 +69,12 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		pList = new JPanel();
 		contentPane.add(pList, BorderLayout.CENTER);
 		pList.setLayout(new BorderLayout(0, 0));
-
-		scrollPane = new JScrollPane();
-		pList.add(scrollPane, BorderLayout.CENTER);
+		//모프시켰을때 이게 이렇게 되어있으면 안보임
+		//그래서 새로 패널추가해서 모프시킴
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		pStdTbl = new StudentTblPanel();
+		pList.add(pStdTbl, BorderLayout.CENTER);
+		
 
 		pBtns = new JPanel();
 		contentPane.add(pBtns, BorderLayout.SOUTH);
@@ -85,12 +86,13 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
 		pBtns.add(btnCancel);
+	
 		
 		loadData();
 	}
 
+
 	private void loadData() {
-		table.setModel(new DefaultTableModel(getRows(),getColumnNames()));
 	}
 
 	private Object[][] getRows() {
@@ -101,15 +103,13 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		}//한명의 정보를 반복문으로 한명씩 넣어줌
 		
 		return rows;
-//		return new Object[][] {
-//			{null, null, null, null, null, null, null},
-//		};
 	}
 
 	private Object[] toArray(Student std) {
 		
 		return new Object[] {std.getStdNo(), std.getStdName(), std.getKor(), std.getEng(), std.getMath(), std.total(), (String.format("%.1f",std.avg()))};
 	}
+	
 
 	private String[] getColumnNames() {
 		return new String[] {"학생번호", "학생명", "국어", "영어", "수학", "총점", "평균"};
@@ -146,9 +146,6 @@ public class StudentTableEx extends JFrame implements ActionListener {
 //				stds.remove(selIdx);
 				
 				
-				
-				
-				
 //				System.out.println("수정");
 			}
 			if (e.getActionCommand().equals("삭제")) {
@@ -166,7 +163,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 			}
 		}
 	};
-	private JTable table;
+	private StudentTblPanel pStdTbl;
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancel) {

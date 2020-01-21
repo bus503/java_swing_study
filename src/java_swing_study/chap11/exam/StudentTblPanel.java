@@ -1,11 +1,14 @@
-package java_swing_study.chap11;
+package java_swing_study.chap11.exam;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,12 +16,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-
-import java_swing_study.chap11.exam.Student;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public class StudentTblPanel extends JPanel {
@@ -42,11 +47,9 @@ public class StudentTblPanel extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		
-		
-		
 		ArrayList<Student> stds = new ArrayList<Student>();
 		stds.add(new Student (1,"서현진",90,80,70));
-		stds.add(new Student (2,"남궁민",90,90,90));
+		stds.add(new Student (2,"남궁민",80,90,90));
 		stds.add(new Student (3,"손예진",70,40,50));
 		
 		loadData(stds);
@@ -62,6 +65,12 @@ public class StudentTblPanel extends JPanel {
 		table.setModel(model);
 		
 		setTblWidthAlign();
+		
+		
+		RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+		table.setRowSorter(sorter);
+		
+		table.getColumnModel().getColumn(2).setCellRenderer(new ReturnTableCellRenderer());
 	}
 
 	private void setTblWidthAlign() {
@@ -187,6 +196,28 @@ public class StudentTblPanel extends JPanel {
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
+		}
+	}
+	
+	
+	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			if (value==null) return this;
+			setText(value.toString());
+			setOpaque(true);
+			
+			if (Integer.parseInt(table.getValueAt(row, 2).toString())>=90) {
+				setBackground(Color.CYAN);
+			}else if(Integer.parseInt(table.getValueAt(row, 2).toString())>=80) {
+				setBackground(Color.LIGHT_GRAY);
+			}
+			else {
+				setBackground(Color.WHITE);
+			}
+			if (isSelected) {
+				setBackground(Color.orange);
+			}
+			return this;
 		}
 	}
 	
