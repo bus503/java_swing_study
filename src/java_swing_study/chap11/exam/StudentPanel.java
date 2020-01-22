@@ -95,7 +95,5 @@ public class StudentPanel extends AbsItemPanel<Student> {
 		tfKor.setText(item.getKor()+"");
 		tfMath.setText(item.getMath()+"");
 		tfEng.setText(item.getEng()+"");
-		
 	} 
-
 }

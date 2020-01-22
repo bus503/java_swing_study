@@ -3,6 +3,7 @@ package java_swing_study.chap11.exam;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -100,6 +101,7 @@ public abstract class AbstractTblPanel<T> extends JPanel {
 		int selectedIdx = table.getSelectedRow();
 		if (selectedIdx == -1) {
 			throw new RuntimeException("해당 학생을 선택하세요");
+//			JOptionPane.showMessageDialog(null, "해당 학생을 선택하세요");
 		}
 		return selectedIdx;
 	}

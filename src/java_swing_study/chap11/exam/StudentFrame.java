@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
@@ -22,6 +25,7 @@ public class StudentFrame extends JFrame implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
+	private int UpdateIdx;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,6 +42,8 @@ public class StudentFrame extends JFrame implements ActionListener {
 
 	public StudentFrame() {
 		initialize();
+		
+	
 	}
 	
 	private void initialize() {
@@ -67,7 +73,9 @@ public class StudentFrame extends JFrame implements ActionListener {
 		pBtns.add(btnCancel);
 		
 		pList = new StudentTblPanel();
+		pList.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		contentPane.add(pList);
+		
 		
 		ArrayList<Student> stds = new ArrayList<Student>();
 		stds.add(new Student(1, "서현진", 80, 90, 70));
@@ -75,8 +83,56 @@ public class StudentFrame extends JFrame implements ActionListener {
 		stds.add(new Student(3, "이유영", 50, 50, 60));
 		
 		pList.loadData(stds);
+		pList.setPopupMenu(createPopupMenu());
 //		pList.setLayout(new BorderLayout(0, 0));
+		
 	}
+
+	
+
+	
+	private JPopupMenu createPopupMenu() {
+		JPopupMenu popMenu = new JPopupMenu();
+			
+			JMenuItem updateItem = new JMenuItem("수정");
+			updateItem.addActionListener(myPopMenu);
+			popMenu.add(updateItem);
+			
+			JMenuItem deleteItem = new JMenuItem("삭제");
+			deleteItem.addActionListener(myPopMenu);
+			popMenu.add(deleteItem);
+			
+			return popMenu;
+		}
+	
+	ActionListener myPopMenu = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getActionCommand().equals("수정")) {
+				Student	upStd = pList.getSelectedItem();
+				
+				
+				//테이블에서 선택된 놈을 upStd라고 하겠다
+				UpdateIdx = pList.getSelectedRowIdx();
+				//위에있는 추상클래스에 있는건데 빈칸을 수정하면 창이 뜸
+//				System.out.println(UpdateIdx);
+				pStudent.setItem(upStd);
+				btnAdd.setText("수정");	
+				pList.clearSelection();
+				//선택한놈을 리셋시킴
+			}
+			if(e.getActionCommand().equals("삭제")){
+					pList.removeRow();
+			}
+				//그냥 이렇게만 하면 연결된 추상에 빈칸연결하면 창뜨게 하는거 그쪽으로 연결되는데
+				//오류가 나오면 더러워보이니까 try 캐치를 쓴다
+				//e1겟메시지는 추상에 throw new RuntimeException이놈 메시지가 뜸
+				//다르게 하면 2번뜨거나 하니까
+			}
+		
+	};
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancel) {
@@ -86,10 +142,20 @@ public class StudentFrame extends JFrame implements ActionListener {
 			btnAddActionPerformed(e);
 		}
 	}
+//	private void btnUpdateActionperformed(ActionEvent e) {
+//		Student updateStd = pStudent.getItem();
+//		stds.set(stds.indexOf(updateStd), updateStd);
+//		
+//	}
 	
 	protected void btnAddActionPerformed(ActionEvent e) {
 		Student std = pStudent.getItem();
-//		ta.append(std.toString() + "\n");
+		if(e.getActionCommand().equals("수정")) {
+			pList.updateRow(std,UpdateIdx);
+			btnAdd.setText("추가");
+		}else {
+			pList.addItem(std);
+		}
 		pStudent.clearTf();
 	}
 	
