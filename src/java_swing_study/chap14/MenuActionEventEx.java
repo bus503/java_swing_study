@@ -39,7 +39,7 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 	private JToolBar toolBar;
 	private JButton btnNew;
 	private JButton btnImg;
-	private JButton btnNewButton;
+	private JButton btnModal;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -116,11 +116,15 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 		
 		toolBar.addSeparator();
 		
-		btnNewButton = new JButton("New button");
-		toolBar.add(btnNewButton);
+		btnModal = new JButton("모달 대화상자");
+		btnModal.addActionListener(this);
+		toolBar.add(btnModal);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnModal) {
+			btnNewButtonActionPerformed(e);
+		}
 		if (e.getSource() == btnNew) {
 			btnNewActionPerformed(e);
 		}
@@ -183,4 +187,13 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 	}
 	
 	
+	protected void btnNewButtonActionPerformed(ActionEvent e) {
+		DialogEx dialog = new DialogEx();
+		dialog.setModal(true);// 앞에창 뒤에창 구분을 못하게 마지막떠있는창에서 다른데 못가게하는거
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+		
+		Student std = dialog.getInput();
+		lblImg.setText(std.toString());
+	}
 }

@@ -1,11 +1,12 @@
-package java_swing_study.chap11.exam;
-import javax.swing.border.TitledBorder;
-import javax.swing.JPanel;
+package java_swing_study.chap14.exam.ui.panel;
 import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
+
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+
+import java_swing_study.chap14.exam.dto.Department;
 
 @SuppressWarnings("serial")
 public class DepartmentPanel extends AbsItemPanel<Department> {

@@ -1,6 +1,8 @@
-package java_swing_study.chap11.exam;
+package java_swing_study.chap14.exam.ui.panel;
 
 import javax.swing.SwingConstants;
+
+import java_swing_study.chap14.exam.dto.Department;
 
 @SuppressWarnings("serial")
 public class DepartmentTblPanel extends AbstractTblPanel<Department> {

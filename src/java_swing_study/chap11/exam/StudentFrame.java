@@ -42,8 +42,7 @@ public class StudentFrame extends JFrame implements ActionListener {
 
 	public StudentFrame() {
 		initialize();
-		
-	
+
 	}
 	
 	private void initialize() {
