@@ -22,7 +22,6 @@ public class JdbcConnection {
 		selectDepartment(url, user, password);
 		insertDepartment(url, user, password);
 		updateDepartment(url, user, password);
-		
 		deleteDepartment(url,user,password);
 		
 	}
